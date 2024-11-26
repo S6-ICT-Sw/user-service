@@ -22,7 +22,8 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 	// Call the service to register the user
 	err = services.Register(context.Background(), &user)
 	if err != nil {
-		http.Error(w, "Failed to create user", http.StatusInternalServerError)
+		//http.Error(w, "Failed to create user", http.StatusInternalServerError)
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 

@@ -7,6 +7,7 @@ import (
 	"user-service/config"
 
 	"github.com/jackc/pgx/v5/pgxpool"
+	//"github.com/jackc/pgx/v5"
 )
 
 var DB *pgxpool.Pool
@@ -24,6 +25,9 @@ func InitSupabase() {
 	if err != nil {
 		log.Fatalf("Unable to parse database configuration: %v", err)
 	}
+
+	// Enable statement caching
+	//config.ConnConfig.
 
 	// Create a connection pool
 	DB, err = pgxpool.NewWithConfig(context.Background(), config)

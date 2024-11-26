@@ -3,6 +3,8 @@ package services
 import (
 	"context"
 	"errors"
+
+	//"log"
 	"regexp"
 
 	"golang.org/x/crypto/bcrypt"
@@ -18,6 +20,7 @@ func Register(ctx context.Context, user *models.User) error {
 		return errors.New("failed to hash password")
 	}
 
+	// Validate the email to check if it's an email
 	if err := validateEmail(user.Email); err != nil {
 		return err
 	}
