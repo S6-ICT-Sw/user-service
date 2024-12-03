@@ -7,7 +7,6 @@ import (
 	"user-service/config"
 
 	"github.com/jackc/pgx/v5/pgxpool"
-	//"github.com/jackc/pgx/v5"
 )
 
 var DB *pgxpool.Pool
@@ -27,7 +26,10 @@ func InitSupabase() {
 	}
 
 	// Enable statement caching
-	//config.ConnConfig.
+	//config.PreferSimpleProtocol = true
+
+	// Explicitly prefer the simple protocol
+	//cfg.ConnConfig.PreferSimpleProtocol = true
 
 	// Create a connection pool
 	DB, err = pgxpool.NewWithConfig(context.Background(), config)
