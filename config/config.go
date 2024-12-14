@@ -9,11 +9,17 @@ import (
 
 // LoadConfig ensures the .env file is loaded at application startup.
 func LoadConfig() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalf("Error loading .env file: %v", err)
+	// Check if .env file exists before loading
+	if _, err := os.Stat(".env"); err == nil {
+		err := godotenv.Load()
+		if err != nil {
+			log.Fatalf("Error loading .env file: %v", err)
+		}
+		log.Println("Configuration loaded from .env file")
+	} else {
+		log.Println(".env file not found, using environment variables")
 	}
-	log.Println("Configuration loaded successfully")
+
 }
 
 // GetEnv fetches the value of a specific environment variable.
