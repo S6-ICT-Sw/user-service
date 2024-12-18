@@ -6,18 +6,11 @@ import (
 
 	"regexp"
 
-	"golang.org/x/crypto/bcrypt"
-
 	"user-service/models"
 	"user-service/repository"
 )
 
 func Register(ctx context.Context, user *models.User) error {
-	// Hash the password using bcrypt
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
-	if err != nil {
-		return errors.New("failed to hash password")
-	}
 
 	// Validate the email to check if it's an email
 	if err := ValidateEmail(user.Email); err != nil {
@@ -32,9 +25,6 @@ func Register(ctx context.Context, user *models.User) error {
 	if existEmail {
 		return errors.New("email aleady exist")
 	}
-
-	// Set the hashed password on the user model
-	user.Password = string(hashedPassword)
 
 	return repository.CreateUser(ctx, user)
 }

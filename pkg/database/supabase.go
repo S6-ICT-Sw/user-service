@@ -25,12 +25,6 @@ func InitSupabase() {
 		log.Fatalf("Unable to parse database configuration: %v", err)
 	}
 
-	// Enable statement caching
-	//config.PreferSimpleProtocol = true
-
-	// Explicitly prefer the simple protocol
-	//cfg.ConnConfig.PreferSimpleProtocol = true
-
 	// Create a connection pool
 	DB, err = pgxpool.NewWithConfig(context.Background(), config)
 	if err != nil {

@@ -58,9 +58,11 @@ func GetUserHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Respond with the user data
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(user)
+	if err := json.NewEncoder(w).Encode(user); err != nil {
+		http.Error(w, "Failed to encode user data", http.StatusInternalServerError)
+		return
+	}
 }
 
 func DeleteUserHandler(w http.ResponseWriter, r *http.Request) {
